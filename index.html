@@ -499,7 +499,15 @@
     tabPrivacy.addEventListener('click', function () { show('privacy'); });
     tabTerms.addEventListener('click', function () { show('terms'); });
 
-    if (location.hash === '#terms') show('terms');
+    // Follow #privacy / #terms both on load and when only the hash changes
+    // (a link tapped while the page is already open). Section anchors such as
+    // #p-3 are left alone.
+    function syncToHash() {
+      if (location.hash === '#terms') show('terms');
+      else if (location.hash === '#privacy') show('privacy');
+    }
+    window.addEventListener('hashchange', syncToHash);
+    syncToHash();
   })();
 </script>
 
