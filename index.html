@@ -196,6 +196,8 @@
     scroll-margin-top: 78px;
   }
 
+  #delete-account { scroll-margin-top: 78px; }
+
   h2 .num {
     color: var(--sage);
     font-variant-numeric: tabular-nums;
@@ -319,7 +321,7 @@
       <header class="doc-header">
         <div class="eyebrow">Legal</div>
         <h1>Privacy Policy</h1>
-        <div class="dates">Effective &amp; last updated: August 28, 2026</div>
+        <div class="dates">Effective August 28, 2026 · Last updated October 2, 2026</div>
       </header>
 
       <p>DogRadar ("the app", "we", "us") helps you find dog-friendly places, keep your dog's health records, chat with other owners, and get AI-powered advice. This policy explains what information we collect, why, and what choices you have.</p>
@@ -375,7 +377,14 @@
       <p>We share information only with the processors above, to the extent needed to run the app, and when required by law. Other app users can see what you choose to make visible: your review author name, place submissions, and messages you send them directly. We never sell your personal information.</p>
 
       <h2 id="p-6"><span class="num">6.</span>Retention &amp; deletion</h2>
-      <p>We keep your data while your account is active. You can delete individual items (a review, a favorite, a dog profile) directly in the app. To delete your account and associated personal data entirely, email us at the address below — we'll confirm once it's done, typically within 30 days.</p>
+      <p>We keep your data while your account is active. You can delete individual items (a review, a favorite, a dog profile) directly in the app.</p>
+      <p id="delete-account"><strong>Deleting your account.</strong> You can delete your account at any time in the app: <strong>Profile → Delete account</strong>, then confirm. This permanently deletes your profile, your dogs and their medical records, your reviews, favorites, messages and posts, the photos you uploaded, and your push-notification tokens. It cannot be undone.</p>
+      <ul>
+        <li>Places you submitted that were approved stay in the catalog as community content, with no link to your account. Places that were never approved are deleted.</li>
+        <li>Deleting your account does <strong>not</strong> cancel a Gold subscription — Apple or Google manages that. Cancel it in your App Store or Google Play subscription settings first, or you may keep being charged.</li>
+        <li>Copies held in our providers' routine backups are overwritten on their normal schedule.</li>
+      </ul>
+      <p>If you can't open the app (for example, you uninstalled it), email <a href="mailto:dsappdevelop@gmail.com">dsappdevelop@gmail.com</a> from the address you registered with and ask us to delete your account. We'll confirm once it's done, typically within 30 days.</p>
 
       <h2 id="p-7"><span class="num">7.</span>Your rights</h2>
       <p>If you're in the European Economic Area, the UK, or another jurisdiction with similar protections, you have the right to access, correct, export, or delete your personal data, and to object to or restrict certain processing. To exercise any of these rights, contact us below — we'll respond within a reasonable time and, where applicable, within the timeframe required by law (e.g. one month under GDPR).</p>
@@ -485,7 +494,9 @@
     var tocPrivacy = document.getElementById('toc-privacy');
     var tocTerms = document.getElementById('toc-terms');
 
-    function show(which) {
+    // keepHash: when switching because the URL already points at a section
+    // (#delete-account, #p-3, #t-6), don't overwrite that hash with the tab's.
+    function show(which, keepHash) {
       var isPrivacy = which === 'privacy';
       tabPrivacy.setAttribute('aria-selected', String(isPrivacy));
       tabTerms.setAttribute('aria-selected', String(!isPrivacy));
@@ -493,18 +504,28 @@
       panelTerms.hidden = isPrivacy;
       tocPrivacy.hidden = !isPrivacy;
       tocTerms.hidden = isPrivacy;
+      if (keepHash) return;
       try { history.replaceState(null, '', isPrivacy ? '#privacy' : '#terms'); } catch (e) {}
     }
 
     tabPrivacy.addEventListener('click', function () { show('privacy'); });
     tabTerms.addEventListener('click', function () { show('terms'); });
 
-    // Follow #privacy / #terms both on load and when only the hash changes
-    // (a link tapped while the page is already open). Section anchors such as
-    // #p-3 are left alone.
+    // Follow the URL hash both on load and when only the hash changes (a link
+    // tapped while the page is already open): the two tabs, plus deep links to a
+    // section — the browser can't scroll to an anchor inside a hidden tab, so
+    // switch first, then scroll.
     function syncToHash() {
-      if (location.hash === '#terms') show('terms');
-      else if (location.hash === '#privacy') show('privacy');
+      var hash = location.hash;
+      if (hash === '#terms') { show('terms'); return; }
+      if (hash === '#privacy') { show('privacy'); return; }
+
+      var inTerms = hash.indexOf('#t-') === 0;
+      var inPrivacy = hash === '#delete-account' || hash.indexOf('#p-') === 0;
+      if (!inTerms && !inPrivacy) return;
+      show(inTerms ? 'terms' : 'privacy', true);
+      var target = document.getElementById(hash.slice(1));
+      if (target) target.scrollIntoView();
     }
     window.addEventListener('hashchange', syncToHash);
     syncToHash();
