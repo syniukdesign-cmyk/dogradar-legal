@@ -197,6 +197,15 @@
   }
 
   #delete-account { scroll-margin-top: 78px; }
+  .delete-box {
+    border: 1.5px solid var(--sage);
+    background: var(--sage-soft);
+    border-radius: 12px;
+    padding: 14px 18px 6px;
+    margin: 4px 0 16px;
+  }
+  .delete-box h3 { margin: 0 0 8px; font-size: 1.05rem; }
+  .doc-link { margin: 10px 0 0; font-size: 0.9rem; }
 
   h2 .num {
     color: var(--sage);
@@ -322,6 +331,7 @@
         <div class="eyebrow">Legal</div>
         <h1>Privacy Policy</h1>
         <div class="dates">Effective August 28, 2026 · Last updated October 2, 2026</div>
+        <p class="doc-link"><a href="#delete-account">How to delete your DogRadar account</a></p>
       </header>
 
       <p>DogRadar ("the app", "we", "us") helps you find dog-friendly places, keep your dog's health records, chat with other owners, and get AI-powered advice. This policy explains what information we collect, why, and what choices you have.</p>
@@ -378,13 +388,18 @@
 
       <h2 id="p-6"><span class="num">6.</span>Retention &amp; deletion</h2>
       <p>We keep your data while your account is active. You can delete individual items (a review, a favorite, a dog profile) directly in the app.</p>
-      <p id="delete-account"><strong>Deleting your account.</strong> You can delete your account at any time in the app: <strong>Profile → Delete account</strong>, then confirm. This permanently deletes your profile, your dogs and their medical records, your reviews, favorites, messages and posts, the photos you uploaded, and your push-notification tokens. It cannot be undone.</p>
-      <ul>
-        <li>Places you submitted that were approved stay in the catalog as community content, with no link to your account. Places that were never approved are deleted.</li>
-        <li>Deleting your account does <strong>not</strong> cancel a Gold subscription — Apple or Google manages that. Cancel it in your App Store or Google Play subscription settings first, or you may keep being charged.</li>
-        <li>Copies held in our providers' routine backups are overwritten on their normal schedule.</li>
-      </ul>
-      <p>If you can't open the app (for example, you uninstalled it), email <a href="mailto:dsappdevelop@gmail.com">dsappdevelop@gmail.com</a> from the address you registered with and ask us to delete your account. We'll confirm once it's done, typically within 30 days.</p>
+      <div class="delete-box" id="delete-account">
+        <h3>Delete your DogRadar account</h3>
+        <p><strong>In the app:</strong> open <strong>Profile → Delete account</strong> and confirm. Your account is deleted right away.</p>
+        <p><strong>Can't open the app?</strong> For example, if you uninstalled it: email <a href="mailto:dsappdevelop@gmail.com?subject=Delete%20my%20DogRadar%20account">dsappdevelop@gmail.com</a> from the address you registered with, with the subject "Delete my DogRadar account". We'll confirm once it's done, typically within 30 days.</p>
+        <p><strong>What is deleted:</strong> your profile, your dogs and their medical records, your reviews, favorites, messages and posts, the photos you uploaded, and your push-notification tokens. This cannot be undone.</p>
+        <p><strong>What is kept:</strong></p>
+        <ul>
+          <li>Places you submitted that were approved stay in the catalog as community content, with no link to your account. Places that were never approved are deleted.</li>
+          <li>A Gold subscription is managed by Apple or Google and is <strong>not</strong> cancelled by deleting your account. Cancel it in your App Store or Google Play subscription settings first, or you may keep being charged.</li>
+          <li>Copies held in our providers' routine backups are overwritten on their normal schedule.</li>
+        </ul>
+      </div>
 
       <h2 id="p-7"><span class="num">7.</span>Your rights</h2>
       <p>If you're in the European Economic Area, the UK, or another jurisdiction with similar protections, you have the right to access, correct, export, or delete your personal data, and to object to or restrict certain processing. To exercise any of these rights, contact us below — we'll respond within a reasonable time and, where applicable, within the timeframe required by law (e.g. one month under GDPR).</p>
